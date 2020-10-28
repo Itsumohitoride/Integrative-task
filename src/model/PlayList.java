@@ -4,9 +4,6 @@ public class PlayList{
 
 	//Attribute
 
-	public final static String PRIVATE = "private";
-	public final static String  = "private";
-	public final static String PRIVATE = "private"; 
 	private String name;
 	private int duration;
 	private int typeList;
@@ -17,22 +14,10 @@ public class PlayList{
 
 	//Methods
 
-	public PlayList(String name, int typeList){
+	public PlayList(String name){
 
 		this.name = name;
 		this.duration = 0;
-
-		switch(typeList){
-			case 1:
-			this.
-			break;
-			case 2:
-
-			break;
-			case 3:
-
-			break;
-		}
 	}
 
 	public String getName(){
@@ -47,15 +32,15 @@ public class PlayList{
 		return duration;
 	}
 
-	public void setDuration(String duration){
+	public void setDuration(int duration){
 		this.duration = duration;
 	}
 
-	public String getTypeList(){
+	public int getTypeList(){
 		return typeList;
 	}
 
-	public void setTypeList(){
+	public void setTypeList(int typeList){
 		this.typeList = typeList;
 	}
 }

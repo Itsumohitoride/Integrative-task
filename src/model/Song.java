@@ -4,17 +4,41 @@ public class Song{
 
 	//Atribute
 
-	private String name;
-	private String password;
-	private String age;
+	private String tittle;
+	private String releaseDate;
+	private String artisName;
+	private Genre genre; 
 	private int duration;
 
-	public User(String tittle, String releaseDate, String artisName, int duration){
+	public Song(String tittle, String releaseDate, String artisName, int genre, int duration){
 
 		this.tittle = tittle;
 		this.releaseDate = releaseDate;
 		this.artisName = artisName;
 		this.duration = duration;
+		switch(genre){
+			case 1:
+			this.genre = Genre.ROCK;
+			break;
+			case 2:
+			this.genre = Genre.HIPHOP;
+			break;
+			case 3:
+			this.genre = Genre.CLASSICAL;
+			break;
+			case 4:
+			this.genre = Genre.REGGEA;
+			break;
+			case 5:
+			this.genre = Genre.SALSA;
+			break;
+			case 6:
+			this.genre = Genre.METAL;
+			break;
+			case 7:
+			this.genre = Genre.POP;
+			break;
+		}
 	}
 
 	public String getTittle(){
@@ -47,6 +71,14 @@ public class Song{
 
 	public void setDuratio(String tittle){
 		this.duration = duration;
+	}
+
+	public Genre getGenre(){
+		return genre;
+	}
+
+	public void setGenre(Genre genre){
+		this.genre = genre;
 	}
 
 	public String toString(){

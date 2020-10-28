@@ -4,9 +4,9 @@ public class MCS{
 
 	//Attribute
 
-	public final static int M_USERS = 10;
-	public final static int M_PLIST = 20;
-	public final static int M_SONG = 50;
+	public final static int N_USERS = 10;
+	public final static int N_PLIST = 20;
+	public final static int N_SONG = 50;
 	public final static int ONE = 1;
 
 	//Relation
@@ -19,9 +19,9 @@ public class MCS{
 
 	public MCS(){
 
-		users = new User[M_USERS];
-		playList = new PlayList[M_PLIST];
-		songsPool = new Song[M_SONG];
+		users = new User[N_USERS];
+		playList = new PlayList[N_PLIST];
+		songsPool = new Song[N_SONG];
 	}
 
 	public boolean createUser(String name, String password, int age){
@@ -30,7 +30,7 @@ public class MCS{
 
 		for(int i = 0; i<users.length && !verific; i++){
 			if(users[i] == null){
-				user[i] = new User(name,password,age);
+				users[i] = new User(name,password,age);
 				verific = true;
 			}
 		}
@@ -38,12 +38,12 @@ public class MCS{
 		return verific;
 	}
 
-	public boolean addSong(String tittle, String releaseDate, String artisName, int duration){
+	public boolean addSong(String tittle, String releaseDate, String artisName,int genre, int duration){
 
 		boolean verific = false;
 		for(int i = 0; i<songsPool.length && !verific; i++){
 				if(songsPool[i] == null){
-					songsPool[i] = new Song(tittle,releaseDate,artisName,duration,duration);
+					songsPool[i] = new Song(tittle,releaseDate,artisName,genre,duration);
 					verific = true;
 				}
 		}
@@ -91,14 +91,19 @@ public class MCS{
 		return verific;
 	}
 
-	public boolean createPlayList(String namePlay){
-
+	public boolean createPlayList(String namePlay, String namePriv){
 		boolean verific = true;
-		PlayList objPlayList = findPlayList();
+		return verific;
+	}
 
-		if(){
+	public boolean createPlayList(String namePlay, String[] nameShared){
+		boolean verific = true;
+		return verific;
+	}
 
-		}
+	public boolean createPlayList(String namePlay){
+		boolean verific = true;
+		return verific;
 	}
 
 	public String showUsers(){
@@ -123,13 +128,13 @@ public class MCS{
 
 		String message = "";
 
-		if(songsPool[ONE] == ){
+		if(songsPool[ONE] == null){
 			message += "**********************************************************************\n                   No hay ninguna cancion registrada                   \n**********************************************************************";
 		}
 		else{
 			for(int i = 0; i<songsPool.length; i++){
 				if(songsPool[i] != null){
-					message += "*************  Song **************\n"+"**  Tittle: "+songsPool[i].getName()+"\n**  Artist: "+songsPool[i].getArtisName()+"\n**  Duratio: "+songsPool[i].getDuration()+"**  Genre: "+songsPool[i].getGenre()+"\n**********************************\n";
+					message += "*************  Song **************\n"+"**  Tittle: "+songsPool[i].getTittle()+"\n**  Artist: "+songsPool[i].getArtisName()+"\n**  Duratio: "+songsPool[i].getDuration()+"**  Genre: "+songsPool[i].getGenre()+"\n**********************************\n";
 				}
 			}
 		}

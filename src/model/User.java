@@ -37,11 +37,20 @@ public class User{
 		return age;
 	}
 
-	public void setAge(String age){
+	public void setAge(int age){
 		this.age = age;
 	}
 
 	public String toString(){
 		return "";
 	}
+
+	public Category getCategory(){
+		return category;
+	}
+
+	public void setCategory(Category category){
+		this.category = category;
+	}
+
 }
