@@ -74,13 +74,27 @@ public class Main{
 			listUsers();
 			break;
 			case 3:
-			createSong();
+			if(mcs.getUsers()[MCS.N_SONG] != null){
+				System.out.println("***********************************************************************");
+				System.out.println("*           Ya se registraron el numero maximo de canciones           *");
+				System.out.println("***********************************************************************");
+			}
+			else{
+				createSong();
+			}	
 			break;
 			case 4:
 			listSongs();
 			break;
 			case 5:
-			createPlayList();
+			if(mcs.getUsers()[MCS.N_PLIST] != null){
+				System.out.println("***********************************************************************");
+				System.out.println("*           Ya se registraron el numero maximo de play list           *");
+				System.out.println("***********************************************************************");
+			}
+			else{
+				createPlayList();
+			}
 			break;
 			case 6:
 
@@ -115,8 +129,8 @@ public class Main{
 		System.out.println("((((((((((((((/  ,(/    ,(   /(((*  ,(((((((((((((((((   ((((((((((((((");
 		System.out.println("((((((((((((((/  .((    ((   /((((  .(((((((((((((((((.  /(((((((((((((");
 		System.out.println("((((((((((((((/  .((.  .((.  *((((,  *((((((((((((((((   /(((((((((((((");
-		System.out.println("((((((((((((((/  .((((((((.  *(((((   *((((/,/(((((((/   ((((((((((((((");
-		System.out.println("((((((((((((((/  .((((((((.  *((((((.        *((   .   .(((((((((((((((");
+		System.out.println("((((((((((((((/  .((((((((.  *(((((   *((((///(((((((/   ((((((((((((((");
+		System.out.println("((((((((((((((/  .((((((((.  *((((((.       ((((   .   .(((((((((((((((");
 		System.out.println("((((((((((((((((((((((((((/*/((((((((((///(((((((////((((((((((((((((((");
 		System.out.println("(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((");
 		System.out.println("((((((((((((((((((((((((((                    (((((((((((((((((((((((((");
@@ -134,9 +148,9 @@ public class Main{
 		System.out.println("(((((((((    //////*.........//*........//*.......,//////,    (((((((((");
 		System.out.println("(((((((((    //////*.........,,.........,,........,//////,    (((((((((");
 		System.out.println("(((((((((    //////*..............................,//////,    (((((((((");
-		System.out.println("(((((((((     *///*  ........,/.........**.......  .*///,     (((((((((");
-		System.out.println("((((((((((             .......,/*.....,/*.......             ((((((((((");
-		System.out.println("(((((((((((((             ........,,,,.......             (((((((((((((");
+		System.out.println("((((((((((    *///*  ........,/.........**.......  .*///,    ((((((((((");
+		System.out.println("(((((((((((            .......,/*.....,/*.......            (((((((((((");
+		System.out.println("(((((((((((((             ........,,,,.......            ((((((((((((((");
 		System.out.println("((((((((((((((((               .........               ((((((((((((((((");
 		System.out.println("(((((((((((((((((((                                 (((((((((((((((((((");
 		System.out.println("((((((((((((((((((((((((((                    (((((((((((((((((((((((((");
@@ -149,7 +163,7 @@ public class Main{
 
 		String verific, name, team, password, verificName;
 		boolean find = true;
-		boolean cont = false; 
+		boolean cont; 
 
 		do{
 			System.out.println("**********************************************************************");
@@ -157,27 +171,25 @@ public class Main{
 			System.out.println("**********************************************************************\n");
 
 			do{
-				System.out.println("Ingrese un nombre o apodo (Sin espacios)");
-				name = lector.nextLine();
+				do{
+					cont = true;
+					System.out.println("Ingrese un nombre o apodo (Sin espacios)");
+					name = lector.nextLine();
 
-				find = mcs.findUser(name);
+					find = mcs.findUser(name);
 
-				for(int i = 0; i<name.length() && cont; i++){
+					for(int i = 0; i<name.length() && cont; i++){
 
-					verificName = (name.substring(i,i+1));
-					if(verificName.equalsIgnoreCase(" ")){
-						cont = true;
+						verificName = (name.substring(i,i+1));
+						if(verificName.equalsIgnoreCase(" ")){
+							System.out.println("El nombre/apodo no debe de contener espacios\n");
+							cont = false;
+						}
 					}
-				}
-				if(cont){
-					System.out.println("El nombre/apodo no debe de contener espacios\n");
-				}
-				else if(find){
-					System.out.println("El usuario ya se encuentra registrado, por favor ingrese otro");
-				}	
-			}while(find && !cont);
+				}while(!cont);	
+			}while(find);
 
-			System.out.println("Ingrese una contaseña");
+			System.out.println("Ingrese una contasenia");
 			password = lector.nextLine();
 
 			System.out.println("Ingrese la edad del usuario");
@@ -254,9 +266,9 @@ public class Main{
 			genre = lector.nextInt();
 
 			System.out.println("Ingrese la duracion de la cancion en segundos");
-			duration = lector.nextInt();
+			duration = lector.nextInt();lector.nextLine();
 
-			if(mcs.getUsers()[NUM_MAX_USERS] != null){
+			if(mcs.getUsers()[MCS.N_SONG-1] != null){
 				System.out.println("**********************************************************************");
 				System.out.println("           Esta es la ultima cancion que se puede registrar           ");
 				System.out.println("**********************************************************************");
@@ -269,6 +281,7 @@ public class Main{
 
 			mcs.addSong(tittle,releaseDate,artisName,genre,duration);
 		}while(verific.equalsIgnoreCase(YES));
+
 	}
 
 	public void listSongs(){
@@ -335,7 +348,7 @@ public class Main{
 					System.out.println("No hay ningun usuario registrado con ese nombre");
 				}
 			}while(!findUser);
-			mcs.createPlayList(namePriv);
+			mcs.createPlayList(namePlay,namePriv);
 		}
 		else if(typeList == 2){
 
@@ -365,7 +378,13 @@ public class Main{
 					System.out.println("No hay ningun usuario registrado con ese nombre");
 				}
 			}while(!findUserPublic);
+			
 			mcs.createPlayList(namePlay);
+		}
+		if(mcs.getUsers()[MCS.N_PLIST-1] != null){
+			System.out.println("**********************************************************************");
+			System.out.println("          Esta es la ultima play list que se puede registrar          ");
+			System.out.println("**********************************************************************");
 		}
 	}
 }
