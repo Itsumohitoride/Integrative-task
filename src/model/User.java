@@ -16,6 +16,9 @@ public class User{
 	*<b>name:</b> User <br>
 	* Create a object user. <br>
 	* <b>post:</b> A object user has created. <br>
+	* @param name is the name of the user.
+	* @param password is the password of the user.
+	* @param age is the age of the user.
 	*/
 
 	public User(String name, String password, int age){
@@ -42,6 +45,7 @@ public class User{
 	* <b>name:</b> setName <br>
 	* Alters the name of the user.
 	* <b>post:</b> alters the name of the user.
+	* @param name is the name of the user.
 	*/
 
 	public void setName(String name){
@@ -63,6 +67,7 @@ public class User{
 	* <b>name:</b> setPassword<br>
 	* Alters the password of the user.
 	* <b>post:</b> alters the password of the user.
+	* @param password is the password of the user.
 	*/
 
 	public void setPassword(String password){
@@ -84,6 +89,7 @@ public class User{
 	* <b>name:</b> setAge<br>
 	* Alters the age of the user.
 	* <b>post:</b> alters the age of the user.
+	* @param age is the age of the user.
 	*/
 
 	public void setAge(int age){
@@ -105,24 +111,52 @@ public class User{
 	* <b>name:</b> setCategory<br>
 	* Alters the category of the user.
 	* <b>post:</b> alters the category of the user.
+	* @param category is the category of the user.
 	*/
 
 	public void setCategory(Category category){
 		this.category = category;
 	}
 
+	/**
+	* <b>name:</b> getContCategory <br>
+	* Gets the counter of the category of the user.
+	* <b>post:</b> gets the counter of the category of the user.
+	* @return <code>contCategory</code> specifying conCategory is the counter of the category of the user.
+	*/
+
 	public int getContCategory(){
 		return contCategory;
 	}
+
+	/**
+	* <b>name:</b> setContCategory<br>
+	* Alters the counter of the category of the user.
+	* <b>post:</b> alters the counter of the category of the user.
+	* @param contCategory is the counter of the category of the user.
+	*/
+
 
 	public void setContCategory(int contCategory){
 		this.contCategory = contCategory;
 	}
 
+	/**
+	* <b>name:</b> cCategory <br>
+	* Add 1 to counter of the category of the user.
+	* <b>post:</b> Add 1 to counter of the category of the user.
+	*/
+
 	public void cCategory(){
 
 		contCategory++;
 	}
+
+	/**
+	* <b>name:</b> changeCategory <br>
+	* Change the category of the user.
+	* <b>post:</b> Save the new category of the user.
+	*/
 
 	public void changeCategory(){
 

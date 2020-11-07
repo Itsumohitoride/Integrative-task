@@ -484,6 +484,10 @@ public class MCS{
 	*<b>name:</b> addSongToPlist <br>
 	* Add a song into a play list. <br>
 	* <b>post:</b> send the object play list, the object user and the object song to add a song into a play list. <br>
+	* @param nameList is the name of the list. nameList != null y nameList != "".
+	* @param name is the name of the user. name != null y name != "".
+	* @param nameSong is the name of the song. nameSong != null y nameSong != "".
+	* @param nameArtist is the name of the artist of the song. nameArtist != null y nameArtist != "".
 	* @return <code>String</code> specifying message result of the action of add song into a play list.
 	*/
 
@@ -512,6 +516,8 @@ public class MCS{
 	*<b>name:</b> addCalification <br>
 	* Add a calification for a public play list. <br>
 	* <b>post:</b> save the calification of the public play list. <br>
+	* @param name is the name of the public play list. name != null y name != "".
+	* @param calification is the calification of the public play list.
 	* @return <code>String</code> specifying message result of the action of add a calification for a public play list.
 	*/
 
