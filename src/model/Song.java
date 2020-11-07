@@ -80,8 +80,4 @@ public class Song{
 	public void setGenre(Genre genre){
 		this.genre = genre;
 	}
-
-	public String toString(){
-		return "";
-	}
 }

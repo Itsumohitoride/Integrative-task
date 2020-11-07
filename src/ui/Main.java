@@ -16,6 +16,12 @@ public class Main{
 
 	public Scanner lector;
 
+	/**
+	*<b>name:</b> Main <br>
+	* Initializes the sccaner and the object mcs <br>
+	* <b>post:</b> create an object mcs. <br>
+	*/
+
 	public Main(){
 
 		lector = new Scanner(System.in);
@@ -32,6 +38,13 @@ public class Main{
 		}while(option != 0);
 	}
 
+	/**
+	*<b>name:</b> menu <br>
+	* Select and option to do an action. <br>
+	* <b>post:</b> send the option. <br>
+	* @return <code>int</code> specifying option is the selecction of the user to do an action.
+	*/
+
 	public int menu(){
 
 		int option;
@@ -45,7 +58,7 @@ public class Main{
 		System.out.println("* (3) Ingresar una cancion               *");
 		System.out.println("* (4) Mostrar las canciones registradas  *");
 		System.out.println("* (5) Crear una play list                *");
-		System.out.println("* (6) Agragar canciones a una play list  *");
+		System.out.println("* (6) Agregar canciones a una play list  *");
 		System.out.println("* (7) Mostrar las play lists registradas *");
 		System.out.println("* (8) Calificar una play list publica    *");
 		System.out.println("* (0) Salir                              *");
@@ -60,7 +73,7 @@ public class Main{
 
 			break;
 			case 1:
-			if(mcs.getUsers()[MCS.N_USERS] != null){
+			if(mcs.getUsers()[MCS.N_USERS-1] != null){
 				System.out.println("***********************************************************************");
 				System.out.println("*             Ya se registro el numero maximo de usuarios             *");
 				System.out.println("***********************************************************************");
@@ -68,13 +81,12 @@ public class Main{
 			else{
 				registerUser();
 			}
-
 			break;
 			case 2:
 			listUsers();
 			break;
 			case 3:
-			if(mcs.getUsers()[MCS.N_SONG] != null){
+			if(mcs.getSongsPool()[MCS.N_SONG-1] != null){
 				System.out.println("***********************************************************************");
 				System.out.println("*           Ya se registraron el numero maximo de canciones           *");
 				System.out.println("***********************************************************************");
@@ -87,7 +99,7 @@ public class Main{
 			listSongs();
 			break;
 			case 5:
-			if(mcs.getUsers()[MCS.N_PLIST] != null){
+			if(mcs.getPlayList()[MCS.N_PLIST-1] != null){
 				System.out.println("***********************************************************************");
 				System.out.println("*           Ya se registraron el numero maximo de play list           *");
 				System.out.println("***********************************************************************");
@@ -97,13 +109,13 @@ public class Main{
 			}
 			break;
 			case 6:
-
+			addSongToPList();
 			break;
 			case 7:
-
+			showPList();
 			break;
 			case 8:
-
+			addCalification();
 			break;
 			default:
 			System.out.println("**********************************************************************");
@@ -113,6 +125,12 @@ public class Main{
 		}
 		return option;
 	}
+
+	/**
+	*<b>name:</b> createMCS <br>
+	* Show and "image" of the MCS and crate an object mcs. <br>
+	* <b>post:</b> the object mcs is create. <br>
+	*/
 
 	public void createMCS(){
 
@@ -159,9 +177,15 @@ public class Main{
 		mcs = new MCS();
 	}
 
+	/**
+	*<b>name:</b> registerUser <br>
+	* Create an user. <br>
+	* <b>post:</b> save an user. <br>
+	*/
+
 	public void registerUser(){
 
-		String verific, name, team, password, verificName;
+		String verific, name, password, verificName;
 		boolean find = true;
 		boolean cont; 
 
@@ -197,7 +221,7 @@ public class Main{
 			lector.nextLine();
 
 
-			if(mcs.getUsers()[NUM_MAX_USERS] != null){
+			if(mcs.getUsers()[MCS.N_USERS-1] != null){
 				System.out.println("**********************************************************************");
 				System.out.println("           Este es el ultimo usuario que se puede registrar           ");
 				System.out.println("**********************************************************************");
@@ -212,6 +236,12 @@ public class Main{
 		}while(verific.equalsIgnoreCase(YES));
 	}
 
+	/**
+	*<b>name:</b> listUsers <br>
+	* A list of the users. <br>
+	* <b>post:</b> show a list of the users. <br>
+	*/
+
 	public void listUsers(){
 
 		System.out.println("***********************************************************************");
@@ -223,10 +253,17 @@ public class Main{
 		System.out.println(message);
 	}
 
+	/**
+	*<b>name:</b> createSong <br>
+	* Create a song. <br>
+	* <b>post:</b> save a song. <br>
+	*/
+
 	public void createSong(){
 
 		boolean find = true;
-		String tittle, releaseDate, artisName, verific;
+		boolean findUser = false;
+		String tittle, releaseDate, artisName, verific, name;
 		int genre;
 		int duration = 0;
 
@@ -246,7 +283,7 @@ public class Main{
 				System.out.println("Ingrese el nombre del artista o de la banda");
 				artisName = lector.nextLine();
 
-				find = mcs.findSong(tittle,releaseDate,artisName);
+				find = mcs.findSong(tittle,artisName);
 
 				if(find){
 					System.out.println("\nLa cancion ya se encuentra registrada, por favor ingrese otra\n");
@@ -268,7 +305,18 @@ public class Main{
 			System.out.println("Ingrese la duracion de la cancion en segundos");
 			duration = lector.nextInt();lector.nextLine();
 
-			if(mcs.getUsers()[MCS.N_SONG-1] != null){
+			do{
+				System.out.println("Ingrese el nombre de la persona que registra la cancion");
+				name = lector.nextLine();
+
+				findUser = mcs.findUser(name);
+
+				if(!findUser){
+					System.out.println("No hay ningun usuario registrado con ese nombre");
+				}
+			}while(!findUser);
+
+			if(mcs.getSongsPool()[MCS.N_SONG-1] != null){
 				System.out.println("**********************************************************************");
 				System.out.println("           Esta es la ultima cancion que se puede registrar           ");
 				System.out.println("**********************************************************************");
@@ -279,10 +327,15 @@ public class Main{
 				verific = lector.nextLine();
 			}
 
-			mcs.addSong(tittle,releaseDate,artisName,genre,duration);
+			mcs.addSong(name,tittle,releaseDate,artisName,genre,duration);
 		}while(verific.equalsIgnoreCase(YES));
-
 	}
+
+	/**
+	*<b>name:</b> listSongs <br>
+	* A list of the songs. <br>
+	* <b>post:</b> show a list of the songs. <br>
+	*/
 
 	public void listSongs(){
 
@@ -295,6 +348,12 @@ public class Main{
 		System.out.println(message);
 	}
 
+	/**
+	*<b>name:</b> createPlayList <br>
+	* Create a play list. <br>
+	* <b>post:</b> save a play list. <br>
+	*/
+
 	public void createPlayList(){
 
 		String namePlay, namePriv, namePublic;
@@ -304,6 +363,7 @@ public class Main{
 		boolean findUserShared = false;
 		String[] nameShared = new String[FIVE]; 
 		int typeList;
+		int cont;
 
 		System.out.println("************************************************************************");
 		System.out.println("                          CREACION DE PLAYLIST                          ");
@@ -329,7 +389,7 @@ public class Main{
 			System.out.println("* (3) Publico     *");
 			System.out.println("*******************");
 
-			typeList = lector.nextInt();
+			typeList = lector.nextInt();lector.nextLine();
 
 			if(typeList != 1 && typeList != 2 && typeList != 3){
 				System.out.println("Opcion invalida, digitela de nuevo");
@@ -340,7 +400,7 @@ public class Main{
 
 			do{
 				System.out.println("Ingrese el nombre de la persona que tiene acceso a la play list");
-				namePriv = lector.nextLine();lector.nextLine();
+				namePriv = lector.nextLine();
 
 				findUser = mcs.findUser(namePriv);
 
@@ -352,7 +412,10 @@ public class Main{
 		}
 		else if(typeList == 2){
 
-			for(int i = 0; i<FIVE; i++){
+			System.out.println("Ingrese el numero de usuarios que tendran acceso a esta lista");
+			cont = lector.nextInt();lector.nextLine();
+
+			for(int i = 0; i<cont; i++){
 				do{
 					System.out.println("Ingrese el nombre del usuario #"+(i+1)+" que va a tener acceso a la play list");
 					nameShared[i] = lector.nextLine();
@@ -364,13 +427,13 @@ public class Main{
 					}
 				}while(!findUserShared);
 			}
-			mcs.createPlayList(namePlay,nameShared);
+			mcs.createPlayList(namePlay,nameShared,cont);
 		}
 		else if(typeList == 3){
 
 			do{
-				System.out.println("Ingrese el nombre de la persona que tiene acceso a la play list");
-				namePublic = lector.nextLine();lector.nextLine();
+				System.out.println("Ingrese el nombre de la persona que crea la play list");
+				namePublic = lector.nextLine();
 
 				findUserPublic = mcs.findUser(namePublic);
 
@@ -381,10 +444,127 @@ public class Main{
 			
 			mcs.createPlayList(namePlay);
 		}
-		if(mcs.getUsers()[MCS.N_PLIST-1] != null){
+		if(mcs.getPlayList()[MCS.N_PLIST-1] != null){
 			System.out.println("**********************************************************************");
 			System.out.println("          Esta es la ultima play list que se puede registrar          ");
 			System.out.println("**********************************************************************");
 		}
+	}
+
+	/**
+	*<b>name:</b> addSongToPList <br>
+	* Add a song to a play list. <br>
+	* <b>post:</b> save a song into a play list. <br>
+	*/
+
+	public void addSongToPList(){
+
+		String nameList, nameSong, artisName, name, message;
+		boolean verific = false;
+		boolean verificSong = false;
+		boolean verificPermission = false; 
+		boolean verificUser = false;
+
+		do{
+
+			System.out.println("Ingrese el nombre de la lista a la que se desea ingresar la cancion");
+			nameList = lector.nextLine();
+
+			verific = mcs.findPlayList(nameList);
+
+			if(!verific){
+				System.out.println("No hay ninguna play list con ese nombre, ingrese de nuevo");
+			}
+		}while(!verific);
+
+		do{
+
+			System.out.println("Ingrese el nombre de la cancion que desea agregar (De las canciones del pool)");
+			nameSong = lector.nextLine();
+
+			System.out.println("Ingrese el nombre del artista o de la banda");
+			artisName = lector.nextLine();
+
+			verificSong = mcs.findSong(nameSong,artisName);
+
+			if(!verificSong){
+				System.out.println("No se encontro ninguna cancion del pool, ingrese de nuevo");
+			}
+		}while(!verificSong);
+
+		do{
+
+			System.out.println("Ingrese el nombre de la persona que esta agregando la cancion");
+			name = lector.nextLine();
+
+			verificUser = mcs.findUser(name);
+
+			if(!verificUser){
+				System.out.println("No se encontro ningun usuario con ese nomber, ingrese de nuevo");
+			}
+		}while(!verificUser);
+
+		message = mcs.addSongToPList(nameList,name,nameSong,artisName);
+
+		System.out.println("**********************************************************************");
+		System.out.println(message);
+		System.out.println("**********************************************************************");
+	}
+
+	/**
+	*<b>name:</b> showPList <br>
+	* A list of the play lists. <br>
+	* <b>post:</b> Show a list of the play list. <br>
+	*/
+
+	public void showPList(){
+
+		System.out.println("************************************************************************");
+		System.out.println("                          LISTADO DE PLAYLIST                           ");
+		System.out.println("************************************************************************\n");
+
+		String message = mcs.showPList();
+
+		System.out.println(message);
+	}
+
+	/**
+	*<b>name:</b> addCalification <br>
+	* Add a calification for a public play list. <br>
+	* <b>post:</b> save a calification for a public play list. <br>
+	*/
+
+	public void addCalification(){
+
+		String name;
+		boolean verific = false;
+		double calification = 0.0;
+
+		System.out.println("*************************************************************************");
+		System.out.println("                      CALIFICAR UNA PUBLIC PLAYLIST                      ");
+		System.out.println("*************************************************************************\n");
+
+		do{
+
+			System.out.println("Ingrese el nombre de la play list que se va a calificar");
+			name = lector.nextLine();
+
+			verific = mcs.findPlayListPublic(name);
+
+			if(!verific){
+				System.out.println("La play list que ingrese no existe o no es publica");
+			}
+		}while(!verific);
+
+		do{
+
+			System.out.println("Ingrese la calificacion");
+			calification = lector.nextDouble();
+
+		}while(calification<0 || calification>5);
+
+		String message = mcs.addCalification(name,calification);
+
+		System.out.println(message);
 	}
 }
